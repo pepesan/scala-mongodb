@@ -9,8 +9,15 @@ object Main extends App {
   val mongoClient: MongoClient = MongoClient("mongodb://localhost/test")
   val database = mongoClient.getDatabase("test")
   val collection: MongoCollection[Document] = database.getCollection("test");
-  val doc: Document = Document( "name" -> "MongoDB", "type" -> "database",
-    "count" -> 1, "info" -> Document("x" -> 203, "y" -> 102))
+  val doc: Document = Document(
+    "name" -> "MongoDB",
+    "type" -> "database",
+    "count" -> 1,
+    "info" -> Document(
+      "x" -> 203,
+      "y" -> 102
+      )
+    )
   val observable: Observable[Completed] = collection.insertOne(doc)
   observable.subscribe(new Observer[Completed] {
 
